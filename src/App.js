@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import SignInOut from './SignInOut';
+import UserInfo from './UserInfo';
+import { auth } from './firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import Home from './components/Home';
+import LeftSideContainer from './components/LeftSideContainer';
+import RightSideContainer from './components/RightSideContainer';
+import { Route, Routes } from 'react-router-dom';
+import Playbar from './components/Playbar';
 
-function App() {
+const App = () => {
+  // const [user, setUser] = useState(null);
+
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //     setUser(user);
+  //   });
+
+  //   return () => unsubscribe();
+  // }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='appContainer'>
+      
+      <LeftSideContainer/>
+       <Home/>
+      <RightSideContainer/>
+      <Playbar/>
     </div>
   );
-}
+};
 
 export default App;
