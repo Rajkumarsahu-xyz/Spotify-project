@@ -12,7 +12,9 @@ function YourLibrary() {
             <div className="libraryHeading">
                 <BiLibrary className="libraryIcon"/>
                 <h2>Your Library</h2>
-                <IoMdAdd className="create-Btn"/>
+                <Link to='/createAlbum'>
+                    <IoMdAdd className="create-Btn"/>
+                </Link>
             </div>
 
             <div className="libraryOptions">
@@ -23,9 +25,12 @@ function YourLibrary() {
 
             <Routes>
                 <Route path={'/'} element={<LibraryPlaylists/>}/>
-                <Route path={'/playlists'} element={<LibraryPlaylists/>}/>
+                <Route path={'/playlists'} element={<LibraryPlaylists/> }/>
                 <Route path={'/albums'} element={<LibraryAlbums/>}/>
                 <Route path={'/artists'} element={<LibraryArtists/>}/>
+                <Route path='/createAlbum' element={<LibraryPlaylists/>}/>
+                <Route path='/createAlbum' element={<LibraryAlbums/>}/>
+                <Route path='/createAlbum' element={<LibraryArtists/>}/>
             </Routes>
                 
         </div>

@@ -8,6 +8,13 @@ import LeftSideContainer from './components/LeftSideContainer';
 import RightSideContainer from './components/RightSideContainer';
 import { Route, Routes } from 'react-router-dom';
 import Playbar from './components/Playbar';
+import CreateAlbumPage from './components/CreateAlbumPage';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
+import { FaSpotify } from "react-icons/fa";
+import LibraryPlaylists from './components/LibraryPlaylists';
+import LibraryAlbums from './components/LibraryAlbums';
+import LibraryArtists from './components/LibraryArtists';
 
 const App = () => {
   // const [user, setUser] = useState(null);
@@ -20,11 +27,30 @@ const App = () => {
   //   return () => unsubscribe();
   // }, []);
 
+  const [user] = useAuthState(auth);
+
   return (
     <div className='appContainer'>
+      <div className='topHeader'>
+        <MdArrowBackIosNew className="arrowheads"/>
+        <MdArrowForwardIos className="arrowheads"/>
+        <FaSpotify className='spotifyLogo'/>
+        <h1>Spotify</h1>
+        <SignInOut/>
+        <div className='loginMsg'>
+          {user && <h1>Welcome, {user.displayName || 'User'}!</h1>}
+        </div>
+      </div>
       
       <LeftSideContainer/>
-       <Home/>
+      <Routes>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/playlists' element={<Home/>}/>
+        <Route path='/albums' element={<Home/>}/>
+        <Route path='/artists' element={<Home/>}/>
+        <Route path='/createAlbum' element={<CreateAlbumPage/>}/>
+      </Routes>
+      
       <RightSideContainer/>
       <Playbar/>
     </div>

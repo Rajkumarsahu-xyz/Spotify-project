@@ -6,18 +6,18 @@ import RecentlyPlayed from "./RecentlyPlayed";
 import FeedArtists from "./FeedArtists";
 import FeedAlbums from "./FeedAlbums";
 import { Link } from "react-router-dom";
-import SignInOut from "../SignInOut";
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from './../firebase';
+// import SignInOut from "../SignInOut";
+// import { useAuthState } from 'react-firebase-hooks/auth';
+// import { auth } from './../firebase';
 
 function Home() {
-    const [user] = useAuthState(auth);
+    // const [user] = useAuthState(auth);
     return (
         <div className='home-container'>
-            <MdArrowBackIosNew className="arrowheads"/>
+            {/* <MdArrowBackIosNew className="arrowheads"/>
             <MdArrowForwardIos className="arrowheads"/>
             <SignInOut/>
-            {user && <h1>Welcome, {user.displayName || 'User'}!</h1>}
+            {user && <h1>Welcome, {user.displayName || 'User'}!</h1>} */}
             
             {/* <Link to='/login'>
                 <CgProfile className='LoginIcon'/>
