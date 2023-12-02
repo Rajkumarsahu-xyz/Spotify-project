@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, getDocs , query, where} from 'firebase/firestore';
 import { app } from './../firebase';
 
 function FeedAlbums() {
@@ -18,6 +18,7 @@ function FeedAlbums() {
       const albumsData = albumsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       const limitedAlbums = albumsData.slice(0, 4);
 
+      console.log(limitedAlbums);
       setAlbums(limitedAlbums);
     };
 

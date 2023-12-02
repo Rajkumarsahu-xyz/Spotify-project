@@ -106,8 +106,8 @@ const RecentlyPlayed = () => {
   const { isPlaying, currentAudioUrl, playPauseToggle } = usePlayer();
   const [recentlyPlayed, setRecentlyPlayed] = useState([]);
 
-  const togglePlay = (audioUrl) => {
-    playPauseToggle(audioUrl);
+  const togglePlay = (audioUrl, title, artistName, imgUrl) => {
+    playPauseToggle(audioUrl, title, artistName, imgUrl);
   };
 
   useEffect(() => {
@@ -134,14 +134,26 @@ const RecentlyPlayed = () => {
           })
         );
 
+        const songsWithArtistData = await Promise.all(
+          songsWithAlbumData.map(async (song) => {
+            const artistQuery = doc(collection(db, 'artists'), song.artist_id);
+            const artistDoc = await getDoc(artistQuery);
+            const artistData = artistDoc.data();
+            return {
+              ...song,
+              artistName: artistData?.name || '', // Handle case where albumData is null
+            };
+          })
+        );
+
         // console.log(songsWithAlbumData);
 
         // Filter out null values (songs without a matching album)
-        const validSongsWithAlbumData = songsWithAlbumData.filter((song) => song !== null);
+        const validSongsWithAlbumData = songsWithArtistData.filter((song) => song !== null);
         // console.log(validSongsWithAlbumData);
 
         setRecentlyPlayed(validSongsWithAlbumData.slice(0, 6));
-        // console.log(recentlyPlayed);
+        console.log(recentlyPlayed);
       } catch (error) {
         console.error('Error fetching data:', error.message);
       }
@@ -158,7 +170,7 @@ const RecentlyPlayed = () => {
           <div key={index} className='recentSongsCard'>
             <img src={song.imgUrl} alt={`Song ${index + 1}`} />
             <p>{song.title}</p>
-            <div onClick={() => togglePlay(song.audioUrl)}>
+            <div onClick={() => togglePlay(song.audioUrl, song.title, song.artistName, song.imgUrl)}>
               {isPlaying && currentAudioUrl === song.audioUrl ? <FaCirclePause className="pauseBtn"/> : <FaCirclePlay className="playBtn"/>}
             </div>
             {/* <PlayPauseButton /> */}

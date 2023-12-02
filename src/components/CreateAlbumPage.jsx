@@ -109,11 +109,11 @@ const handleSubmit = async () => {
             <label>Album Title </label>
             <input type="text" value={albumTitle} onChange={(e) => setAlbumTitle(e.target.value)} />
             <br />
-            <label>Add Cover Picture for Album </label>
+            <label>Add Album Cover Picture </label>
             <input type="file" onChange={handleCoverImageChange} />
             {/* <button onClick={() => handleUpload('cover')}>Upload</button> */}
             <br />
-            <label>Add Song to the Album </label>
+            <label>Add Songs to the Album </label>
             <input type="file" multiple onChange={handleSongFileChange} />
 
             {songs.map((song, index) => (

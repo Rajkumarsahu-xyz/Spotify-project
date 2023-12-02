@@ -15,6 +15,7 @@ import { FaSpotify } from "react-icons/fa";
 import LibraryPlaylists from './components/LibraryPlaylists';
 import LibraryAlbums from './components/LibraryAlbums';
 import LibraryArtists from './components/LibraryArtists';
+import CreatePlaylistPage from './components/CreatePlaylistPage';
 
 const App = () => {
   // const [user, setUser] = useState(null);
@@ -49,6 +50,7 @@ const App = () => {
         <Route path='/albums' element={<Home/>}/>
         <Route path='/artists' element={<Home/>}/>
         <Route path='/createAlbum' element={<CreateAlbumPage/>}/>
+        <Route path='/createPlaylist' element={<CreatePlaylistPage/>}/>
       </Routes>
       
       <RightSideContainer/>

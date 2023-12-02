@@ -3,17 +3,19 @@ import { IoSearchSharp } from "react-icons/io5";
 import { GoHomeFill } from "react-icons/go";
 import { IoMdAdd } from "react-icons/io";
 import YourLibrary from "./YourLibrary";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function LeftSideContainer() {
+    const navigate = useNavigate();
+    function clickHandler() {
+        navigate('/');
+    }
     return (
         <div className="leftSideContainer">
-            <Link to={'/'}>
-                <div className="home-btn">
-                    <GoHomeFill className="home-icon"/>
-                    <h2>Home</h2>
-                </div>
-            </Link>
+            <div onClick={clickHandler} className="home-btn">
+                <GoHomeFill className="home-icon"/>
+                <h2>Home</h2>
+            </div>
 
             <div className="search-btn">
                 <IoSearchSharp className="search-icon"/>

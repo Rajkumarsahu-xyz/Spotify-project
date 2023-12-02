@@ -1,4 +1,4 @@
-// Create a new file, e.g., PlayerContext.js
+
 import React, { createContext, useContext, useState } from 'react';
 
 const PlayerContext = createContext();
@@ -6,19 +6,22 @@ const PlayerContext = createContext();
 const PlayerProvider = ({ children }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentAudioUrl, setCurrentAudioUrl] = useState('');
+  const [currentSong, setCurrentSong] = useState(null);
 
-  const playPauseToggle = (audioUrl) => {
+  const playPauseToggle = (audioUrl, title, artist, imgUrl) => {
     if (isPlaying && audioUrl === currentAudioUrl) {
       setIsPlaying(false);
       setCurrentAudioUrl('');
+      setCurrentSong(null);
     } else {
       setIsPlaying(true);
       setCurrentAudioUrl(audioUrl);
+      setCurrentSong({ title, artist, imgUrl });
     }
   };
 
   return (
-    <PlayerContext.Provider value={{ isPlaying, currentAudioUrl, playPauseToggle }}>
+    <PlayerContext.Provider value={{ isPlaying, currentAudioUrl, currentSong, playPauseToggle }}>
       {children}
     </PlayerContext.Provider>
   );

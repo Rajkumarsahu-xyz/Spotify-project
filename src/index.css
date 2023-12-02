@@ -143,7 +143,8 @@ body {
 .leftSideContainer {
   padding: 2vh 1vw;
   width: 20vw;
-  background-color: #224e33;
+  background-color: #214c32;
+  background: linear-gradient(to bottom, #214c32 , #282828 180%);
 }
 
 .home-btn {
@@ -203,7 +204,36 @@ body {
   padding: 1vw 0 1vw 4vw;
   align-self: center;
   color: white;
+  cursor: pointer;
 }
+
+.dropdown-content {
+  position: absolute;
+  left: 15vw;
+  top: 22vh;
+  width: 8vw;
+  background-color: black;
+  /* min-width: 160px; */
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+
+}
+
+.dropdown-content li {
+  padding: 12px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  margin-left: -2vw;
+}
+
+.dropdown-content li:hover {
+  background-color: #241b1b;
+}
+
+/* .dropdown:hover .dropdown-content {
+  display: block;
+} */
 
 .libraryOptions {
   display: flex;
@@ -231,6 +261,7 @@ body {
 .rightSideContainer {
   width: 25vw;
   background-color: #224e33;
+  background: linear-gradient(to bottom, #214c32 , #282828 180%);
   /* width: 22vw; */
 }
 
@@ -248,6 +279,7 @@ body {
 .songDetails {
   display: flex;
   align-items: center;
+  width: 17vw;
 }
 
 .songDetails > img {
@@ -266,7 +298,7 @@ body {
 }
 
 .audioPlayer {
-  padding: 0 16vw 0 7vw;
+  padding: 0 16vw 0 2vw;
   align-self: center;
 }
 
@@ -283,7 +315,7 @@ body {
 .pauseBtn, .playBtn {
   font-size: 2rem;
   padding: 1vh;
-
+  cursor: pointer;
 }
 
 progress {
@@ -293,6 +325,7 @@ progress {
   padding: 0;
   /* background-color: grey; */
   accent-color: green;
+  cursor: pointer;
 }
 
 .queueBtn {
@@ -355,5 +388,65 @@ progress {
 }
 
 .createAlbumForm button:hover {
+  background-color: #45a049;
+}
+
+.createPlaylist-Container {
+  width: 50vw;
+  background: linear-gradient(to bottom, #265a39 , #241b1b 90%);
+  padding: 0 2vh;
+  padding-top: 15vh;
+  padding-bottom: 20vh;
+}
+
+.createPlaylist-Container > h2 {
+  text-align: center;
+  padding: 2vh;
+}
+
+.createPlaylistForm {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  /* background-color: #241b1b; */
+  /* background: linear-gradient(to bottom, black, #241b1b); */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9), 0 6px 20px 0 rgba(0, 0, 0, 0.9);
+  border: none;
+}
+
+.createPlaylistForm label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.createPlaylistForm input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+.createPlaylistForm select {
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-height: 250px;
+} 
+
+.createPlaylistForm button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.createPlaylistForm button:hover {
   background-color: #45a049;
 }
