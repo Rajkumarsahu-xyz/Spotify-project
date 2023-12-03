@@ -90,6 +90,9 @@ function YourLibrary() {
         <Route path={"/createPlaylist"} element={<LibraryPlaylists />} />
         <Route path={"/createPlaylist"} element={<LibraryAlbums />} />
         <Route path={"/createPlaylist"} element={<LibraryArtists />} />
+        <Route path="/albums/:albumId" element={<LibraryPlaylists/>} />
+        <Route path="/albums/:albumId" element={<LibraryAlbums/>} />
+        <Route path="/albums/:albumId" element={<LibraryArtists/>} />
       </Routes>
     </div>
   );

@@ -16,6 +16,9 @@ import LibraryPlaylists from './components/LibraryPlaylists';
 import LibraryAlbums from './components/LibraryAlbums';
 import LibraryArtists from './components/LibraryArtists';
 import CreatePlaylistPage from './components/CreatePlaylistPage';
+import AlbumDetails from './components/AlbumDetails';
+import ArtistDetails from './components/ArtistDetails';
+import PlaylistDetails from './components/PlaylistDetails';
 
 const App = () => {
   // const [user, setUser] = useState(null);
@@ -51,6 +54,10 @@ const App = () => {
         <Route path='/artists' element={<Home/>}/>
         <Route path='/createAlbum' element={<CreateAlbumPage/>}/>
         <Route path='/createPlaylist' element={<CreatePlaylistPage/>}/>
+        <Route path="/albums/:albumId" element={<AlbumDetails/>} />
+        <Route path="/artists/:artistId" element={<ArtistDetails/>} />
+        <Route path="/playlists/:playlistId" element={<PlaylistDetails/>} />
+        {/* <Route path="/artists/:artistId" component={ArtistDetails} /> */}
       </Routes>
       
       <RightSideContainer/>

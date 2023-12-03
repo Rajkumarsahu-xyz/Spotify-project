@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
-import { createAlbum, addSongToAlbum } from '../FirebaseFunctions';
+import { createAlbum, addSongToAlbum, updateArtistWithAlbum } from '../FirebaseFunctions';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { storage } from '../firebase';
+import { storage, auth } from '../firebase';
 
 const CreateAlbumPage = () => {
   const [albumTitle, setAlbumTitle] = useState('');
@@ -16,6 +16,9 @@ const CreateAlbumPage = () => {
     },
   ]);
   const [newlyCreatedAlbum, setNewlyCreatedAlbum] = useState(null);
+
+  const { uid, displayName } = auth.currentUser || {};
+  // console.log(uid);
 
   const handleCoverImageChange = (event) => {
     const file = event.target.files[0];
@@ -52,15 +55,22 @@ const CreateAlbumPage = () => {
   };
 
 const handleSubmit = async () => {
+
+  if (!uid || !displayName) {
+    console.error('User not authenticated.');
+    return;
+  }
     // Upload cover image to Firebase Storage
     const coverImageUrl = await uploadFile('AlbumCovers', albumTitle, coverImage);
-  
+
     // Create album in Firestore
-    const albumId = await createAlbum(albumTitle, coverImageUrl);
-  
+    const albumId = await createAlbum(albumTitle, coverImageUrl, uid);
+
+    await updateArtistWithAlbum(uid, displayName, albumId);
+
     // Add song to the album
     for (const song of songs) {
-      await addSongToAlbum(albumId, song.name, song.genre, song.tags, song.file);
+      await addSongToAlbum(albumId, song.name, song.genre, song.tags, song.file, uid);
     }
 
     const uploadedSongs = await Promise.all(
@@ -77,7 +87,10 @@ const handleSubmit = async () => {
         title: albumTitle,
         coverImageUrl,
         songs: uploadedSongs,
+        artistName: displayName,
       });
+
+      console.log(newlyCreatedAlbum);
   
     // Reset form state
     setAlbumTitle('');
@@ -150,11 +163,11 @@ const handleSubmit = async () => {
         {newlyCreatedAlbum && (
             <div className='newlyCreatedAlbum'>
                 <h2>Newly Created Album</h2>
-                <h3>{newlyCreatedAlbum.title}</h3>
-                <img src={`${newlyCreatedAlbum.coverImageUrl}`} style={{height: "20vh", width:"15vw"}} alt="" />
+                <h3>{newlyCreatedAlbum.title} - {newlyCreatedAlbum.artistName}</h3>
+                <img src={`${newlyCreatedAlbum.coverImageUrl}`} alt="" />
                 {newlyCreatedAlbum.songs.map((song, index) => (
                     <div key={index}>
-                        <p>Song {index + 1}: {song.name}</p>
+                        <p>Song {index + 1} : {song.name}</p>
                         <audio controls>
                             <source src={`${newlyCreatedAlbum.songs[index].audioUrl}`} type="audio/mpeg" />
                             Your browser does not support the audio element.

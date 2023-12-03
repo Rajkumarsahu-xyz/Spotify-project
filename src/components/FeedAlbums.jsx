@@ -2,9 +2,15 @@
 import React, { useEffect, useState } from 'react';
 import { getFirestore, collection, getDocs , query, where} from 'firebase/firestore';
 import { app } from './../firebase';
+import { Link, useNavigate } from 'react-router-dom';
 
 function FeedAlbums() {
   const [albums, setAlbums] = useState([]);
+  const navigate = useNavigate();
+
+  function handleAlbumClick(albumId) {
+    navigate(`/albums/${albumId}`);
+  }
 
   useEffect(() => {
     // Fetch albums from Firestore
@@ -30,9 +36,9 @@ function FeedAlbums() {
       <h2>Albums</h2>
       <div className="albumsContainer">
         {albums.map(album => (
-          <div key={album.id} className="albumsCard">
-            <img src={album.coverImageUrl} alt="" />
-            <p>{album.title}</p>
+          <div key={album.id} className="albumsCard" onClick={() => handleAlbumClick(album.id)}>
+              <img src={album.coverImageUrl} alt="" />
+              <p>{album.title}</p>
           </div>
         ))}
       </div>

@@ -349,7 +349,7 @@
 
 
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CiHeart } from 'react-icons/ci';
 import { MdSkipPrevious, MdSkipNext } from 'react-icons/md';
 import PlayPauseButton from './PlayPauseButton';
@@ -361,6 +361,7 @@ function Playbar() {
   const { isPlaying, playPauseToggle, currentAudioUrl, currentSong } = usePlayer();
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     const audioElement = document.getElementById('audio-element');
@@ -386,13 +387,12 @@ function Playbar() {
     }
 
     const { value, offsetWidth } = e.target;
-    console.log(value);
-    console.log(e.target, offsetWidth);
-    const percentage = (value / offsetWidth);
-    const newTime = percentage * audioElement.duration;
+    const percentage = (value / duration);
+    const newTime = percentage * duration;
+    console.log('aud ', duration);
     console.log(newTime);
     
-    audioElement.currentTime = (newTime*10);
+    audioElement.currentTime = newTime 
 };
 
 
@@ -404,6 +404,34 @@ const formatTime = (timeInSeconds) => {
 
   const togglePlay = () => {
     playPauseToggle(currentAudioUrl);
+  };
+
+  const handleTimeUpdate = () => {
+    // Update the total duration when the audio is loaded
+    setDuration(audioRef.current.duration);
+// setCurrentTime(audioRef.current.currentTime);
+  };
+
+  // useEffect(() => {
+  //   // Update the total duration when the audio is loaded
+  //   setDuration(audioRef.current.duration);
+
+  //   // Update the current time continuously for smooth progress bar updates
+  //   const intervalId = setInterval(() => {
+  //     setCurrentTime(audioRef.current.currentTime);
+  //   }, 100);
+
+  //   return () => clearInterval(intervalId);
+  // }, []);
+
+  const handleProgressBarClick = (e) => {
+    const progressBar = e.currentTarget;
+    const clickPosition = e.clientX - progressBar.getBoundingClientRect().left;
+    const progressBarWidth = progressBar.offsetWidth;
+    const clickedTime = (clickPosition / progressBarWidth) * duration;
+
+    // Set the audio's current time to the clicked time
+    audioRef.current.currentTime = clickedTime;
   };
 
   return (
@@ -429,12 +457,30 @@ const formatTime = (timeInSeconds) => {
           </div>
           <MdSkipNext className='nextSong' />
         </div>
-        <audio id='audio-element' src={currentAudioUrl} autoPlay={isPlaying}></audio>
+        <audio ref={audioRef} id='audio-element' src={currentAudioUrl} autoPlay={isPlaying}></audio>
         <div className="progress-container">
           <span className="current-time">{formatTime(currentTime)}</span>
           <progress id='progress-bar' value={(currentTime / duration) * 100} max={duration || 1} onClick={handleSeek}></progress>
           <span className="duration">{formatTime(duration)}</span>
         </div>
+
+{/* <div
+        className="progress-bar"
+        onClick={handleProgressBarClick}
+        style={{ width: '100%', height: '20px', backgroundColor: '#ddd', cursor: 'pointer' }}
+      >
+        <div
+          style={{
+            width: `${(audioRef.current.currentTime / duration) * 100}%`,
+            height: '100%',
+            backgroundColor: '#4caf50',
+          }}
+        ></div>
+      </div> */}
+
+
+
+
         {/* <progress id='progress-bar' value={(currentTime / duration) * 100} max='100' onClick={handleSeek}></progress> */}
       </div>
 

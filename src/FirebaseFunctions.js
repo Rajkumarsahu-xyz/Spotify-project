@@ -5,16 +5,18 @@ import { app, storage } from './firebase';
 
 const db = getFirestore(app);
 
-export const createAlbum = async (title, coverImageUrl) => {
+export const createAlbum = async (title, coverImageUrl, artistId) => {
   const albumRef = await addDoc(collection(db, 'albums'), {
     title,
     coverImageUrl,
     songs: [],
+    artist_id: artistId, // Add artist_id to the album data
   });
+  console.log(artistId);
   return albumRef.id;
 };
 
-export const addSongToAlbum = async (albumId, name, genre, tags, file) => {
+export const addSongToAlbum = async (albumId, name, genre, tags, file, artistId) => {
     const albumDocRef = firestoreDoc(db, 'albums', albumId);
   
     try {
@@ -35,9 +37,45 @@ export const addSongToAlbum = async (albumId, name, genre, tags, file) => {
         songs: updatedSongs,
         title: album.title,
         coverImageUrl: album.coverImageUrl,
+        artist_id: artistId,
       });
     } catch (error) {
       console.error('Error adding song to album:', error.message);
+    }
+  };
+
+  export const updateArtistWithAlbum = async (artistId, artistName, albumId) => {
+    const artistDocRef = firestoreDoc(db, 'artists', artistId);
+    console.log(artistDocRef);
+  
+    try {
+      // Retrieve existing artist data
+      const artistDoc = await getDoc(artistDocRef);
+      console.log(artistDoc);
+      const artist = artistDoc.data();
+
+      console.log(artist);
+
+      if(!artist) {
+        await setDoc(artistDocRef, {
+          name: artistName,
+          Album: [albumId],
+        });
+      }
+  
+      // Add album_id to the artist's data
+      else {
+        const updatedAlbums = [...(artist.Album || []), albumId];
+        console.log(updatedAlbums);
+        await setDoc(artistDocRef, {
+          name: artistName,
+          Album: updatedAlbums,
+          // Add any other fields you may have in the artist document
+        });
+      }
+
+    } catch (error) {
+      console.error('Error updating artist with album:', error.message);
     }
   };
 

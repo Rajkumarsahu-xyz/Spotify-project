@@ -1,26 +1,37 @@
+
 import React, { useEffect, useState } from 'react';
 import { collection, addDoc, getDocs, query, doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
-// import { useFirestore } from './../firebase'; // Assuming you have a hook for Firestore
+import { db, auth } from '../firebase';
 
 const CreatePlaylistForm = () => {
   const [title, setTitle] = useState('');
   const [selectedSongs, setSelectedSongs] = useState([]);
   const [availableSongs, setAvailableSongs] = useState([]);
-
-//   const firestore = useFirestore();
+  const [user, setUser] = useState(null);
+  const [newlyCreatedPlaylist, setNewlyCreatedPlaylist] = useState(null);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
 
   const handleSongSelection = (e) => {
-    const selectedSongId = e.target.value;
-    setSelectedSongs((prevSelectedSongs) => [...prevSelectedSongs, selectedSongId]);
+    const selectedSongInfo = JSON.parse(e.target.value);
+    console.log(selectedSongInfo.id);
+    setSelectedSongs((prevSelectedSongs) => [...prevSelectedSongs, { id: selectedSongInfo.id, audioUrl: selectedSongInfo.audioUrl, title: selectedSongInfo.title}]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if the user is authenticated
+    if (!auth.currentUser) {
+      console.error('User not authenticated.');
+      return;
+    }
+
+    // Get the current user's information
+    const { uid, displayName } = auth.currentUser;
+    setUser({ uid, displayName });
 
     // Create a new playlist document in Firestore
     try {
@@ -28,11 +39,24 @@ const CreatePlaylistForm = () => {
       const newPlaylistDoc = await addDoc(playlistsCollection, {
         title: title,
         songs: selectedSongs,
+        createdBy: {
+          userId: uid,
+          username: displayName,
+        },
       });
 
-      console.log('Playlist created with ID: ', newPlaylistDoc.id);
+      setNewlyCreatedPlaylist({
+        title: title,
+        songs: selectedSongs,
+        createdBy: {
+          userId: uid,
+          username: displayName,
+        },
+      });
+
+      console.log('Playlist created with ID:', newPlaylistDoc.id);
     } catch (error) {
-      console.error('Error creating playlist: ', error.message);
+      console.error('Error creating playlist:', error.message);
     }
   };
 
@@ -59,11 +83,8 @@ const CreatePlaylistForm = () => {
       );
 
       setAvailableSongs(songsWithArtistName);
-      console.log(availableSongs);
-
-      // Use songsData to display available songs in the dropdown
     } catch (error) {
-      console.error('Error fetching songs: ', error.message);
+      console.error('Error fetching songs:', error.message);
     }
   };
 
@@ -73,28 +94,47 @@ const CreatePlaylistForm = () => {
   }, []);
 
   return (
-    <div className='createPlaylistForm'>
+    <div>
+      <div className='createPlaylistForm'>
         <form onSubmit={handleSubmit}>
-        <label> Playlist Title: </label>
-        <input type="text" value={title} onChange={handleTitleChange} />
+          <label>Playlist Title:</label>
+          <input type="text" value={title} onChange={handleTitleChange} />
+          
+          <br />
 
-        <br />
-
-        <label> Select Songs: </label>
-        <select multiple value={selectedSongs} onChange={handleSongSelection}>
+          <label>Select Songs:</label>
+          <select multiple value={selectedSongs} onChange={handleSongSelection}>
             {availableSongs.map((song) => (
-            <option key={song.id} value={song.id}>
+              <option key={song.id} value={JSON.stringify({ id: song.id, title: song.title, audioUrl: song.audioUrl })}>
                 {song.title} - {song.artistName}
-            </option>
+              </option>
             ))}
-        </select>
+          </select>
 
-        <br />
-        <button type="submit">Create Playlist</button>
+          <br />
+
+          <button type="submit">Create Playlist</button>
         </form>
+      </div>
+
+      {newlyCreatedPlaylist && (
+            <div className='newlyCreatedPlaylist'>
+                <h2>Newly Created Playlist</h2>
+                <h3>{newlyCreatedPlaylist.title} - {newlyCreatedPlaylist.createdBy.username}</h3>
+                
+                {newlyCreatedPlaylist.songs.map((song, index) => (
+                    <div key={index}>
+                        <p>Song {index + 1} : {song.title}</p>
+                        <audio controls>
+                            <source src={`${newlyCreatedPlaylist.songs[index].audioUrl}`} type="audio/mpeg" />
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                ))}
+            </div>
+        )}
     </div>
   );
 };
 
 export default CreatePlaylistForm;
-
