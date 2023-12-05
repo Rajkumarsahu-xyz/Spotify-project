@@ -41,13 +41,17 @@ body {
 }
 
 .arrowheads {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   margin: 2vh 2vh 0 0;
-  padding: 0.6vh 0.2vh;
+  padding: 0.6vh 0.5vh;
   color: whitesmoke;
   border-radius: 3rem;
-  background-color: #241b1b;
+  /* background-color: #241b1b; */
   cursor: pointer;
+}
+
+.arrowheads:hover {
+  background-color: #1f492f;
 }
 
 .spotifyLogo {
@@ -79,6 +83,10 @@ body {
   color: whitesmoke;
   cursor: pointer;
   border: none;
+}
+
+.loginIcon:hover {
+  background-color: #241b1b;
 }
 
 .loginMsg {
@@ -125,19 +133,30 @@ body {
   text-align: center;
   border-radius: 0.5rem;
   cursor: pointer;
+  /* transform: scale(0.99); */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.artistCard:hover {
+  /* transform: scale(1); */
+  transition-duration: 2s;
+  overflow: hidden;
+  object-fit: cover;
 }
 
 .artistCard > img {
   width: 11vw;
   height: 23vh;
+  transform: scale(0.95);
   border-radius: 0.5rem;
 }
 
-/* .artistCard > img:hover {
-  height: 24vh;
-  width: 11.5vw;
-} */
+.artistCard > img:hover {
+  /* height: 24vh;
+  width: 11.5vw; */
+  transition-duration: 2s;
+  transform: scale(1);
+}
 
 .albumsContainer {
   display: flex;
@@ -153,10 +172,26 @@ body {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.albumsCard:hover {
+  /* transform: scale(1); */
+  transition-duration: 2s;
+  overflow: hidden;
+  object-fit: cover;
+}
+
 .albumsCard > img {
   width: 11vw;
   height: 23vh;
   border-radius: 0.5rem;
+  transform: scale(0.95);
+}
+
+.albumsCard > img:hover {
+  /* height: 24vh;
+  width: 11.5vw; */
+  transition-duration: 2s;
+  overflow: hidden;
+  transform: scale(1);
 }
 
 .leftSideContainer {
@@ -697,12 +732,13 @@ progress {
   /* margin: 20px; */
 }
 
-.progress-bar {
+.progressBar {
   height: 1vh;
   width: 40vw;
   border-radius: 1rem;
   background-color: white;
   position: relative;
+  cursor: pointer;
 }
 
 #progress {

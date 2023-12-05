@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { MdSkipPrevious, MdSkipNext } from 'react-icons/md';
 import { FaCirclePause, FaCirclePlay } from 'react-icons/fa6';
 import { HiOutlineQueueList } from 'react-icons/hi2';
-import { usePlayer } from './PlayerContext'; // Update with the correct path
+import { usePlayer } from './PlayerContext';
 import Like from './Like';
 import {auth, db} from '../firebase';
 import { addDoc, collection, deleteDoc, getDocs, query, where } from 'firebase/firestore';
@@ -28,14 +28,11 @@ function Playbar() {
     if (userId && songId) {
       const likesRef = collection(db, 'likes');
 
-      // Check if a like document exists for the current user and song
       getDocs(query(likesRef, where('user_id', '==', userId), where('song_id', '==', songId)))
         .then((querySnapshot) => {
           if (!querySnapshot.empty) {
-            // User has liked the song
             setIsLiked(true);
           } else {
-            // User has not liked the song
             setIsLiked(false);
           }
         })
@@ -73,17 +70,14 @@ function Playbar() {
   
     if (userId && songId) {
       const likesRef = collection(db, 'likes');
-  
-      // Check if a like document exists for the current user and song
+
       getDocs(query(likesRef, where('user_id', '==', userId), where('song_id', '==', songId)))
         .then((querySnapshot) => {
           if (!querySnapshot.empty) {
-            // User has already liked the song, delete the like
             const likeDoc = querySnapshot.docs[0];
             deleteDoc(likeDoc.ref);
             setIsLiked(false);
           } else {
-            // User has not liked the song, add a new like
             addDoc(likesRef, { user_id: userId, song_id: songId, isLiked: true })
               .then(() => setIsLiked(true))
               .catch((error) => console.error('Error adding like:', error));
@@ -95,38 +89,22 @@ function Playbar() {
     }
   };
 
-  // const handleProgressBarClick = (e) => {
-  //   const progressBar = progressBarRef.current;
-  //   console.log(progressBar);
-  //   const rect = progressBar.getBoundingClientRect();
-  //   console.log(rect);
-  //   const x = e.clientX - rect.left;
-  //   console.log(x);
-  //   const percentage = (x / rect.width);
-  //   console.log(percentage);
-  //   const newTime = percentage * audioRef.current.duration;
-
-  //   audioRef.current.currentTime = newTime;
-  //   console.log(newTime);
-  //   setCurrentTime(newTime);
-  // };
-
   const handleProgressBarClick = (e) => {
-    const progressBar = progressBarRef.current;
-    const rect = progressBar.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const percentage = x / rect.width;
+    if (!isPlaying) {
+      return; // If not playing, do nothing
+    }
   
-    // Ensure the percentage is within the valid range [0, 1]
-    const clampedPercentage = Math.min(1, Math.max(0, percentage));
-  
-    // Calculate the new time based on the percentage
-    const newTime = clampedPercentage * audioRef.current.duration;
-  
-    // Set the audio's current time to the new time
+    const progressBar = document.getElementById('progressBar')
+    console.log(progressBar.getBoundingClientRect().width);
+
+    console.log(e.nativeEvent.offsetX);
+    console.log(e.nativeEvent.offsetX/576);
+    console.log(duration);
+
+    const newTime = ((e.nativeEvent.offsetX/progressBar.getBoundingClientRect().width)*duration);
+    console.log(newTime);
+
     audioRef.current.currentTime = newTime;
-  
-    // Update the state to reflect the new current time
     setCurrentTime(newTime);
   };
   
@@ -138,6 +116,9 @@ function Playbar() {
   };
 
   const togglePlay = () => {
+    if(!isPlaying) {
+      return;
+    }
     playPauseToggle(currentAudioUrl, currentSong.title, currentSong.artist, currentSong.imgUrl, currentSong.songId);
   };
 
@@ -169,10 +150,10 @@ function Playbar() {
           <MdSkipNext className='nextSong' />
         </div>
 
-        <div className="progress-container" onClick={handleProgressBarClick}>
+        <div className="progress-container" >
           <span className="current-time">{formatTime(currentTime)}</span>
           {<audio ref={audioRef} id='audio-element' src={currentAudioUrl} autoPlay={isPlaying} onTimeUpdate={handleTimeUpdate}></audio>}
-          <div className="progress-bar">
+          <div className="progressBar" id="progressBar" onClick={handleProgressBarClick}>
             <div id='progress' ref={progressBarRef}></div>
           </div>
           <span className="duration">{formatTime(duration)}</span>
