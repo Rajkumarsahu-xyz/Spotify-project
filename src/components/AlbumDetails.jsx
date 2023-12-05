@@ -30,7 +30,7 @@ const AlbumDetails = () => {
     const artistDocSnapshot = await getDoc(artistDocRef);
 
     const artistData = artistDocSnapshot.data();
-    console.log(artistData.name);
+    console.log(artistData);
 
       if (albumDoc.exists()) {
         setAlbum({ id: albumDoc.id, artistName: artistData.name, ...albumDoc.data() });
@@ -56,7 +56,7 @@ const AlbumDetails = () => {
             {(album.songs).map((song, index) => (
                 <div key={index} className='albumDetailSongsCard'>
                     <h2>{song.name}</h2>
-                    <div onClick={() => togglePlay(song.audioUrl, song.title, song.artistName, album.coverImageUrl)}>
+                    <div onClick={() => togglePlay(song.audioUrl, song.name, album.artistName, album.coverImageUrl)}>
                     {isPlaying && currentAudioUrl === song.audioUrl ? <FaCirclePause className="pauseBtn"/> : <FaCirclePlay className="playBtn"/>}
                     </div>
                 </div>
