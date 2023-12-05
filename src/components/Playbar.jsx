@@ -1,437 +1,148 @@
-// import React, { useEffect, useState } from "react";
-// import { CiHeart } from "react-icons/ci";
-// import { MdSkipPrevious, MdSkipNext } from "react-icons/md";
-// import PlayPauseButton from "./PlayPauseButton";
-// import { HiOutlineQueueList } from "react-icons/hi2";
-// import { usePlayer } from "./PlayerContext";
-
-// function Playbar() {
-//     const [currentTime, setCurrentTime] = useState(0);
-//     const [duration, setDuration] = useState(0);
-//     const { isPlaying, playPauseToggle, currentAudioUrl } = usePlayer();
-  
-//     // useEffect(() => {
-//     //   const audioElement = document.getElementById('audio-element');
-  
-//     //   const updateTime = () => {
-//     //     setCurrentTime(audioElement.currentTime);
-//     //     setDuration(audioElement.duration);
-//     //   };
-  
-//     //   audioElement.addEventListener('timeupdate', updateTime);
-  
-//     //   return () => {
-//     //     audioElement.removeEventListener('timeupdate', updateTime);
-//     //   };
-//     // }, []);
-  
-//     const handleSeek = (e) => {
-//     //   const audioElement = document.getElementById('audio-element');
-//     //   const { value } = e.target;
-//     //   audioElement.currentTime = value;
-//     };
-
-//     return (
-//         <div className="bottomPlaybar">
-//             <div className="songDetails">
-//                 <img src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIEIue_xdN_kbYQPV5UeGxiA76CQk_hybY2lfCW6XRJaXKWNe9a1ZYUbl40AradJnxZDQ&usqp=CAU"} alt="" />
-//                 <div>
-//                     <h3>Song</h3>
-//                     <p>Artist</p>
-//                 </div>
-//                 <CiHeart className="likeBtn"/>
-//             </div>
-
-//             <div className="audioPlayer">
-//                 <div>
-//                     <MdSkipPrevious className="prevSong"/>
-//                     <PlayPauseButton />
-//                     <MdSkipNext className="nextSong"/>
-//                 </div>
-//                 <progress id="progress-bar" value={currentTime} max={duration || 1} onClick={handleSeek}></progress>
-
-//             </div>
-//             <div className="queueBtnDiv">
-//                 <HiOutlineQueueList className="queueBtn"/>
-//             </div>
-//         </div>
-//     );
-// }
-
-// export default Playbar;
-
-
-
-
-
-
-// import React, { useEffect, useState } from 'react';
-// import { CiHeart } from 'react-icons/ci';
-// import { MdSkipPrevious, MdSkipNext } from 'react-icons/md';
-// import PlayPauseButton from './PlayPauseButton';
-// import { HiOutlineQueueList } from 'react-icons/hi2';
-// import { FaCirclePause } from 'react-icons/fa6';
-// import { FaCirclePlay } from 'react-icons/fa6';
-// import { usePlayer } from './PlayerContext';
-//  // Update with the correct path
-
-// function Playbar() {
-//   const { isPlaying, playPauseToggle, currentAudioUrl } = usePlayer();
-//   const [currentTime, setCurrentTime] = useState(0);
-//   const [duration, setDuration] = useState(0);
-
-//   // useEffect(() => {
-//   //   const audioElement = document.getElementById('audio-element');
-
-//   //   const updateTime = () => {
-//   //     setCurrentTime(audioElement.currentTime);
-//   //     setDuration(audioElement.duration);
-//   //   };
-
-//   //   audioElement.addEventListener('timeupdate', updateTime);
-
-//   //   return () => {
-//   //     audioElement.removeEventListener('timeupdate', updateTime);
-//   //   };
-//   // }, []);
-
-//   const handleSeek = (e) => {
-//     //   const audioElement = document.getElementById('audio-element');
-//     //   const { value } = e.target;
-//     //   audioElement.currentTime = value;
-//   };
-
-//   const togglePlay = (audioUrl) => {
-//     playPauseToggle(audioUrl);
-//   };
-
-//   return (
-//     <div className='bottomPlaybar'>
-//       <div className='songDetails'>
-//         <img
-//           src={
-//             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIEIue_xdN_kbYQPV5UeGxiA76CQk_hybY2lfCW6XRJaXKWNe9a1ZYUbl40AradJnxZDQ&usqp=CAU'
-//           }
-//           alt=''
-//         />
-//         <div>
-//           <h3>Song</h3>
-//           <p>Artist</p>
-//         </div>
-//         <CiHeart className='likeBtn' />
-//       </div>
-
-
-//         <div className='audioPlayer'>
-//             <div>
-//                 <MdSkipPrevious className='prevSong' />
-//                 <div onClick={() => togglePlay(currentAudioUrl)}>
-//                     {isPlaying ? (
-//                         <FaCirclePause className='pauseBtn'/>
-//                     ) : (
-//                         <FaCirclePlay className='playBtn'/>
-//                     )}
-//                 </div>
-//                 {/* <PlayPauseButton onClick={() => togglePlay(currentAudioUrl)}/> */}
-//                 <MdSkipNext className='nextSong' />
-//             </div>
-//             <audio id='audio-element' src={currentAudioUrl} autoPlay={isPlaying}></audio>
-//             <progress id='progress-bar' value={currentTime} max={duration || 1} onClick={handleSeek}></progress>
-//         </div>
-
-
-//       {/* <div className='audioPlayer'>
-//         <div>
-//           <MdSkipPrevious className='prevSong' />
-//           <PlayPauseButton />
-//           <MdSkipNext className='nextSong' />
-//         </div>
-//         <progress id='progress-bar' value={currentTime} max={duration || 1} onClick={handleSeek}></progress>
-//       </div> */}
-//       <div className='queueBtnDiv'>
-//         <HiOutlineQueueList className='queueBtn' />
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Playbar;
-
-
-
-
-
-
-
-// import React, { useEffect, useState } from 'react';
-// import { CiHeart } from 'react-icons/ci';
-// import { MdSkipPrevious, MdSkipNext } from 'react-icons/md';
-// import { FaCirclePause, FaCirclePlay } from 'react-icons/fa6';
-// import { HiOutlineQueueList } from 'react-icons/hi2';
-// import { usePlayer } from './PlayerContext'; // Update with the correct path
-
-// function Playbar() {
-//   const { isPlaying, playPauseToggle, currentAudioUrl } = usePlayer();
-//   const [currentTime, setCurrentTime] = useState(0);
-//   const [duration, setDuration] = useState(0);
-
-
-
-//   const handleSeek = (e) => {
-//     const audioElement = document.getElementById('audio-element');
-//     const { value } = e.target;
-//     audioElement.currentTime = value;
-//   };
-
-//   const togglePlay = () => {
-//     playPauseToggle(currentAudioUrl);
-//   };
-
-//   return (
-//     <div className='bottomPlaybar'>
-//       <div className='songDetails'>
-//         {/* Replace with actual song details from your player context */}
-//         <img
-//           src={
-//             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIEIue_xdN_kbYQPV5UeGxiA76CQk_hybY2lfCW6XRJaXKWNe9a1ZYUbl40AradJnxZDQ&usqp=CAU'
-//           }
-//           alt=''
-//         />
-//         <div>
-//           <h3>Song Title</h3>
-//           <p>Artist Name</p>
-//         </div>
-//         <CiHeart className='likeBtn' />
-//       </div>
-
-//       <div className='audioPlayer'>
-//         <div>
-//           <MdSkipPrevious className='prevSong' />
-//           <div onClick={togglePlay}>
-//             {isPlaying ? (
-//               <FaCirclePause className='pauseBtn' />
-//             ) : (
-//               <FaCirclePlay className='playBtn' />
-//             )}
-//           </div>
-//           <MdSkipNext className='nextSong' />
-//         </div>
-//         <audio id='audio-element' src={currentAudioUrl} autoPlay={isPlaying}></audio>
-//         <progress id='progress-bar' value={currentTime} max={duration || 1} onClick={handleSeek}></progress>
-//       </div>
-
-//       <div className='queueBtnDiv'>
-//         <HiOutlineQueueList className='queueBtn' />
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Playbar;
-
-
-
-
-
-// import React, { useEffect, useState } from 'react';
-// import { CiHeart } from 'react-icons/ci';
-// import { MdSkipPrevious, MdSkipNext } from 'react-icons/md';
-// import { FaCirclePause, FaCirclePlay } from 'react-icons/fa6';
-// import { HiOutlineQueueList } from 'react-icons/hi2';
-// import { usePlayer } from './PlayerContext'; // Update with the correct path
-
-// function Playbar() {
-//   const { isPlaying, playPauseToggle, currentAudioUrl } = usePlayer();
-//   const [currentTime, setCurrentTime] = useState(0);
-//   const [duration, setDuration] = useState(0);
-
-//   useEffect(() => {
-//     const audioElement = document.getElementById('audio-element');
-
-//     const updateTime = () => {
-//       setCurrentTime(audioElement.currentTime);
-//       setDuration(audioElement.duration);
-//     };
-
-//     audioElement.addEventListener('timeupdate', updateTime);
-
-//     return () => {
-//       audioElement.removeEventListener('timeupdate', updateTime);
-//     };
-//   }, [currentAudioUrl]);
-
-// //   const handleSeek = (e) => {
-// //     const audioElement = document.getElementById('audio-element');
-// //     const { value } = e.target;
-// //     console.log(value);
-// //     audioElement.currentTime = value;
-// //   };
-
-    // const handleSeek = (e) => {
-    //     const audioElement = document.getElementById('audio-element');
-    
-    //     if (!audioElement) {
-    //     console.error("Audio element not found");
-    //     return;
-    //     }
-    
-    //     const { value, offsetWidth } = e.target;
-    //     console.log(value);
-    //     console.log(e.target, offsetWidth);
-    //     const percentage = (value / offsetWidth);
-    //     const newTime = percentage * audioElement.duration;
-    //     console.log(newTime);
-        
-    //     audioElement.currentTime = (newTime*10);
-    // };
-
-//   const togglePlay = () => {
-//     playPauseToggle(currentAudioUrl);
-//   };
-
-//   const formatTime = (timeInSeconds) => {
-//     const minutes = Math.floor(timeInSeconds / 60);
-//     const seconds = Math.floor(timeInSeconds % 60);
-//     return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-//   };
-
-//   return (
-//     <div className='bottomPlaybar'>
-//       <div className='songDetails'>
-//         {/* Replace with actual song details from your player context */}
-//         <img
-//           src={
-//             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIEIue_xdN_kbYQPV5UeGxiA76CQk_hybY2lfCW6XRJaXKWNe9a1ZYUbl40AradJnxZDQ&usqp=CAU'
-//           }
-//           alt=''
-//         />
-//         <div>
-//           <h3>Song Title</h3>
-//           <p>Artist Name</p>
-//         </div>
-//         <CiHeart className='likeBtn' />
-//       </div>
-
-//       <div className='audioPlayer'>
-//         <div>
-//           <MdSkipPrevious className='prevSong' />
-//           <div onClick={togglePlay}>
-//             {isPlaying ? (
-//               <FaCirclePause className='pauseBtn' />
-//             ) : (
-//               <FaCirclePlay className='playBtn' />
-//             )}
-//           </div>
-//           <MdSkipNext className='nextSong' />
-//         </div>
-//         <audio id='audio-element' src={currentAudioUrl} autoPlay={isPlaying} ></audio>
-//         <div className="progress-container">
-//           <span className="current-time">{formatTime(currentTime)}</span>
-//           <progress id='progress-bar' value={currentTime} max={duration || 1} onClick={handleSeek}></progress>
-//           <span className="duration">{formatTime(duration)}</span>
-//         </div>
-//       </div>
-
-//       <div className='queueBtnDiv'>
-//         <HiOutlineQueueList className='queueBtn' />
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Playbar;
-
-
-
-
-
-
-
-
 
 import React, { useEffect, useRef, useState } from 'react';
-import { CiHeart } from 'react-icons/ci';
 import { MdSkipPrevious, MdSkipNext } from 'react-icons/md';
-import PlayPauseButton from './PlayPauseButton';
-import { HiOutlineQueueList } from 'react-icons/hi2';
 import { FaCirclePause, FaCirclePlay } from 'react-icons/fa6';
+import { HiOutlineQueueList } from 'react-icons/hi2';
 import { usePlayer } from './PlayerContext'; // Update with the correct path
+import Like from './Like';
+import {auth, db} from '../firebase';
+import { addDoc, collection, deleteDoc, getDocs, query, where } from 'firebase/firestore';
 
 function Playbar() {
   const { isPlaying, playPauseToggle, currentAudioUrl, currentSong } = usePlayer();
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const user = auth.currentUser;
+
   const audioRef = useRef(null);
+  const progressBarRef = useRef(null);
 
   useEffect(() => {
-    const audioElement = document.getElementById('audio-element');
+    setIsLoading(true);
 
-    const updateTime = () => {
-      setCurrentTime(audioElement.currentTime);
-      setDuration(audioElement.duration);
-    };
+    const userId = user?.uid;
+    const songId = currentSong?.songId;
 
-    audioElement.addEventListener('timeupdate', updateTime);
+    if (userId && songId) {
+      const likesRef = collection(db, 'likes');
 
-    return () => {
-      audioElement.removeEventListener('timeupdate', updateTime);
-    };
-  }, []);
-
-  const handleSeek = (e) => {
-    const audioElement = document.getElementById('audio-element');
-
-    if (!audioElement) {
-    console.error("Audio element not found");
-    return;
+      // Check if a like document exists for the current user and song
+      getDocs(query(likesRef, where('user_id', '==', userId), where('song_id', '==', songId)))
+        .then((querySnapshot) => {
+          if (!querySnapshot.empty) {
+            // User has liked the song
+            setIsLiked(true);
+          } else {
+            // User has not liked the song
+            setIsLiked(false);
+          }
+        })
+        .catch((error) => {
+          console.error('Error checking likes:', error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoading(false);
     }
 
-    const { value, offsetWidth } = e.target;
-    const percentage = (value / duration);
-    const newTime = percentage * duration;
-    console.log('aud ', duration);
-    console.log(newTime);
-    
-    audioElement.currentTime = newTime 
-};
+
+    if (!audioRef.current) return;
+
+    const updateProgress = () => {
+      const percentage = (audioRef.current.currentTime / audioRef.current.duration) * 100;
+      progressBarRef.current.style.width = `${percentage}%`;
+      setCurrentTime(audioRef.current.currentTime);
+    };
+
+    audioRef.current.addEventListener('timeupdate', updateProgress);
+
+    return () => {
+      audioRef.current.removeEventListener('timeupdate', updateProgress);
+    };
+  }, [currentSong, user]);
 
 
-const formatTime = (timeInSeconds) => {
+
+  const handleLikeClick = () => {
+    const userId = user?.uid;
+    const songId = currentSong?.songId;
+  
+    if (userId && songId) {
+      const likesRef = collection(db, 'likes');
+  
+      // Check if a like document exists for the current user and song
+      getDocs(query(likesRef, where('user_id', '==', userId), where('song_id', '==', songId)))
+        .then((querySnapshot) => {
+          if (!querySnapshot.empty) {
+            // User has already liked the song, delete the like
+            const likeDoc = querySnapshot.docs[0];
+            deleteDoc(likeDoc.ref);
+            setIsLiked(false);
+          } else {
+            // User has not liked the song, add a new like
+            addDoc(likesRef, { user_id: userId, song_id: songId, isLiked: true })
+              .then(() => setIsLiked(true))
+              .catch((error) => console.error('Error adding like:', error));
+          }
+        })
+        .catch((error) => {
+          console.error('Error checking likes:', error);
+        });
+    }
+  };
+
+  // const handleProgressBarClick = (e) => {
+  //   const progressBar = progressBarRef.current;
+  //   console.log(progressBar);
+  //   const rect = progressBar.getBoundingClientRect();
+  //   console.log(rect);
+  //   const x = e.clientX - rect.left;
+  //   console.log(x);
+  //   const percentage = (x / rect.width);
+  //   console.log(percentage);
+  //   const newTime = percentage * audioRef.current.duration;
+
+  //   audioRef.current.currentTime = newTime;
+  //   console.log(newTime);
+  //   setCurrentTime(newTime);
+  // };
+
+  const handleProgressBarClick = (e) => {
+    const progressBar = progressBarRef.current;
+    const rect = progressBar.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percentage = x / rect.width;
+  
+    // Ensure the percentage is within the valid range [0, 1]
+    const clampedPercentage = Math.min(1, Math.max(0, percentage));
+  
+    // Calculate the new time based on the percentage
+    const newTime = clampedPercentage * audioRef.current.duration;
+  
+    // Set the audio's current time to the new time
+    audioRef.current.currentTime = newTime;
+  
+    // Update the state to reflect the new current time
+    setCurrentTime(newTime);
+  };
+  
+
+  const formatTime = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = Math.floor(timeInSeconds % 60);
     return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
   };
 
   const togglePlay = () => {
-    playPauseToggle(currentAudioUrl);
+    playPauseToggle(currentAudioUrl, currentSong.title, currentSong.artist, currentSong.imgUrl, currentSong.songId);
   };
 
   const handleTimeUpdate = () => {
-    // Update the total duration when the audio is loaded
     setDuration(audioRef.current.duration);
-// setCurrentTime(audioRef.current.currentTime);
-  };
-
-  // useEffect(() => {
-  //   // Update the total duration when the audio is loaded
-  //   setDuration(audioRef.current.duration);
-
-  //   // Update the current time continuously for smooth progress bar updates
-  //   const intervalId = setInterval(() => {
-  //     setCurrentTime(audioRef.current.currentTime);
-  //   }, 100);
-
-  //   return () => clearInterval(intervalId);
-  // }, []);
-
-  const handleProgressBarClick = (e) => {
-    const progressBar = e.currentTarget;
-    const clickPosition = e.clientX - progressBar.getBoundingClientRect().left;
-    const progressBarWidth = progressBar.offsetWidth;
-    const clickedTime = (clickPosition / progressBarWidth) * duration;
-
-    // Set the audio's current time to the clicked time
-    audioRef.current.currentTime = clickedTime;
   };
 
   return (
@@ -446,7 +157,7 @@ const formatTime = (timeInSeconds) => {
             </div>
           </>
         )}
-        <CiHeart className='likeBtn' />
+        {!isLoading && isPlaying && <Like isLiked={isLiked} onClick={handleLikeClick} />}
       </div>
 
       <div className='audioPlayer'>
@@ -457,31 +168,15 @@ const formatTime = (timeInSeconds) => {
           </div>
           <MdSkipNext className='nextSong' />
         </div>
-        <audio ref={audioRef} id='audio-element' src={currentAudioUrl} autoPlay={isPlaying}></audio>
-        <div className="progress-container">
+
+        <div className="progress-container" onClick={handleProgressBarClick}>
           <span className="current-time">{formatTime(currentTime)}</span>
-          <progress id='progress-bar' value={(currentTime / duration) * 100} max={duration || 1} onClick={handleSeek}></progress>
+          {<audio ref={audioRef} id='audio-element' src={currentAudioUrl} autoPlay={isPlaying} onTimeUpdate={handleTimeUpdate}></audio>}
+          <div className="progress-bar">
+            <div id='progress' ref={progressBarRef}></div>
+          </div>
           <span className="duration">{formatTime(duration)}</span>
         </div>
-
-{/* <div
-        className="progress-bar"
-        onClick={handleProgressBarClick}
-        style={{ width: '100%', height: '20px', backgroundColor: '#ddd', cursor: 'pointer' }}
-      >
-        <div
-          style={{
-            width: `${(audioRef.current.currentTime / duration) * 100}%`,
-            height: '100%',
-            backgroundColor: '#4caf50',
-          }}
-        ></div>
-      </div> */}
-
-
-
-
-        {/* <progress id='progress-bar' value={(currentTime / duration) * 100} max='100' onClick={handleSeek}></progress> */}
       </div>
 
       <div className='queueBtnDiv'>

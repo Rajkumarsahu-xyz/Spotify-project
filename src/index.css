@@ -47,6 +47,7 @@ body {
   color: whitesmoke;
   border-radius: 3rem;
   background-color: #241b1b;
+  cursor: pointer;
 }
 
 .spotifyLogo {
@@ -58,13 +59,18 @@ body {
   margin-left: 13vw;
   margin-right: 1vw;
   align-self: center;
+  cursor: pointer;
+}
+
+.topHeader > h1 {
+  cursor: pointer;
 }
 
 .loginIcon {
   font-size: 1.25rem;
   font-weight: 700;
   position: absolute;
-  top: 2vh;
+  top: 3vh;
   right: 1vw;
   padding: 1vh 2vw;
   margin-top: 1vh;
@@ -94,6 +100,7 @@ body {
   width: 14vw;
   justify-content: space-between;
   align-items: center;
+  border-radius: 0.5rem;
   /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.09), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -101,6 +108,7 @@ body {
 .recentSongsCard > img {
   width: 5vw;
   height: 10vh;
+  border-radius: 0.5rem;
 }
 .recentSongsCard > p {
   padding: 1vh;
@@ -115,6 +123,7 @@ body {
   padding: 2vh 0 1vh 0;
   width: 12vw;
   text-align: center;
+  border-radius: 0.5rem;
   cursor: pointer;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -122,7 +131,13 @@ body {
 .artistCard > img {
   width: 11vw;
   height: 23vh;
+  border-radius: 0.5rem;
 }
+
+/* .artistCard > img:hover {
+  height: 24vh;
+  width: 11.5vw;
+} */
 
 .albumsContainer {
   display: flex;
@@ -133,6 +148,7 @@ body {
   padding: 2vh 0 1vh 0;
   width: 12vw;
   text-align: center;
+  border-radius: 0.5rem;
   cursor: pointer;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -140,6 +156,7 @@ body {
 .albumsCard > img {
   width: 11vw;
   height: 23vh;
+  border-radius: 0.5rem;
 }
 
 .leftSideContainer {
@@ -153,6 +170,11 @@ body {
   display: flex;
   width: 20vw;
   cursor: pointer;
+  border-radius: 1rem;
+}
+
+.home-btn:hover {
+  background-color: #265a39;
 }
 
 .home-btn > h2 {
@@ -180,15 +202,16 @@ body {
   font-size: 1.75em;
   padding: 1vw;
   align-self: center;
-  /* color: white; */
-  /* background-color: #241b1b; */
-  /* color: white; */
 }
 
 .yourLibrary {
   width: 20vw;
   height: 70vh;
   /* padding: 1vh; */
+}
+
+.yourLibrary > p {
+  margin: 1vh 0 0 1vw;
 }
 
 .libraryHeading {
@@ -203,10 +226,15 @@ body {
 
 .create-Btn {
   font-size: 1.75em;
-  padding: 1vw 0 1vw 4vw;
+  margin: 1vw 0 1vw 4vw;
   align-self: center;
   color: white;
   cursor: pointer;
+}
+
+.create-Btn:hover {
+  border: 1px solid white;
+  border-radius: 1rem;
 }
 
 .dropdown-content {
@@ -215,6 +243,7 @@ body {
   top: 22vh;
   width: 8vw;
   background-color: black;
+  border-radius: 0.75rem;
   /* min-width: 160px; */
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -242,18 +271,42 @@ body {
 }
 
 .libraryOptionsTab {
-  padding: 0 1vh;
+  padding: 1vh 1.5vh;
   color: white;
   text-decoration: none;
   cursor: pointer;
+  border-radius: 1.5rem;
+}
+
+.libraryOptionsTab.active {
+  background-color: #265a39;
+}
+
+.libraryOptionsTab:hover {
+  background-color: #265a39;
 }
 
 .libraryPlaylistsContainer{
   padding: 0 2vh;
 }
 
+.libraryPlaylistsContainer > p {
+  cursor: pointer;
+  padding: 1vh;
+  margin-right: 3vw;
+  border-radius: 1rem;
+}
+
+.libraryPlaylistsContainer > p:hover {
+  background-color: #265a39;
+}
+
 .libraryAlbumsContainer{
   padding: 0 2vh;
+}
+
+.libraryAlbumsContainer > p {
+  cursor: pointer;
 }
 
 .libraryArtistsContainer{
@@ -300,8 +353,10 @@ body {
 }
 
 .audioPlayer {
-  padding: 0 16vw 0 2vw;
-  align-self: center;
+  /* align-content: center; */
+  margin: 0 15vw 0 0;
+  padding: 0 2vw 0 2vw;
+  /* align-items: center; */
 }
 
 .audioPlayer > div{
@@ -324,10 +379,13 @@ progress {
   height: 1vh;
   width: 40vw;
   margin: 0 1vh;
-  padding: 0;
   /* background-color: grey; */
   accent-color: green;
   cursor: pointer;
+}
+
+.current-time, .duration {
+  margin: 0 1vh 1vh 1vh;
 }
 
 .queueBtn {
@@ -469,8 +527,9 @@ progress {
 }
 
 .albumDetailsContainer {
-  padding: 2vh 1vw;
+  padding: 2vh 2vw;
   padding-top: 25vh;
+  padding-bottom: 10vh;
   background-color: #265a39;
   width: 50vw;
   display: flex;
@@ -481,6 +540,7 @@ progress {
 .albumDetailsContainer > div > img {
   width: 22vw;
   height: 55vh;
+  border-radius: 1.5rem;
 }
 
 .albumDetailSongs {
@@ -494,6 +554,7 @@ progress {
   margin: 2vh;
   justify-content: space-between;
   align-items: center;
+  border-radius: 1rem;
   /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.09), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -506,6 +567,7 @@ progress {
   /* text-align: center; */
   padding: 2vh 2vw;
   padding-top: 25vh;
+  /* padding-bottom: 20vh; */
   background-color: #265a39;
   width: 50vw;
 }
@@ -517,6 +579,7 @@ progress {
 .artistBio > img {
   width: 30vw;
   height: 30vh;
+  border-radius: 1rem;
 }
 
 .artistDetailAlbums {
@@ -536,6 +599,7 @@ progress {
   display: flex;
   width: 45vw;
   /* height: 25vh; */
+  border-radius: 1rem;
   margin: 2vh;
   justify-content: space-between;
   align-items: center;
@@ -546,6 +610,7 @@ progress {
 .artistDetailAlbumsCard > img {
   width: 12vw;
   height: 24vh;
+  border-radius: 1rem;
 }
 
 .artistDetailAlbumsCard > div {
@@ -555,6 +620,7 @@ progress {
 .playlistDetailsContainer {
   padding: 2vh 2vw;
   padding-top: 20vh;
+  padding-bottom: 20vh;
   /* text-align: center; */
   background-color: #265a39;
   width: 50vw;
@@ -581,4 +647,68 @@ progress {
   align-items: center;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   /* cursor: pointer; */
+}
+
+.loader {
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: absolute;
+  position: fixed;
+  left: 48vw;
+  top: 25vh;
+  text-indent: -9999em;
+  animation: mulShdSpin 1.1s infinite ease;
+  transform: translateZ(0);
+}
+@keyframes mulShdSpin {
+  0%,
+  100% {
+    box-shadow: 0em -2.6em 0em 0em #ffffff, 1.8em -1.8em 0 0em rgba(255,255,255, 0.2), 2.5em 0em 0 0em rgba(255,255,255, 0.2), 1.75em 1.75em 0 0em rgba(255,255,255, 0.2), 0em 2.5em 0 0em rgba(255,255,255, 0.2), -1.8em 1.8em 0 0em rgba(255,255,255, 0.2), -2.6em 0em 0 0em rgba(255,255,255, 0.5), -1.8em -1.8em 0 0em rgba(255,255,255, 0.7);
+  }
+  12.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(255,255,255, 0.7), 1.8em -1.8em 0 0em #ffffff, 2.5em 0em 0 0em rgba(255,255,255, 0.2), 1.75em 1.75em 0 0em rgba(255,255,255, 0.2), 0em 2.5em 0 0em rgba(255,255,255, 0.2), -1.8em 1.8em 0 0em rgba(255,255,255, 0.2), -2.6em 0em 0 0em rgba(255,255,255, 0.2), -1.8em -1.8em 0 0em rgba(255,255,255, 0.5);
+  }
+  25% {
+    box-shadow: 0em -2.6em 0em 0em rgba(255,255,255, 0.5), 1.8em -1.8em 0 0em rgba(255,255,255, 0.7), 2.5em 0em 0 0em #ffffff, 1.75em 1.75em 0 0em rgba(255,255,255, 0.2), 0em 2.5em 0 0em rgba(255,255,255, 0.2), -1.8em 1.8em 0 0em rgba(255,255,255, 0.2), -2.6em 0em 0 0em rgba(255,255,255, 0.2), -1.8em -1.8em 0 0em rgba(255,255,255, 0.2);
+  }
+  37.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(255,255,255, 0.2), 1.8em -1.8em 0 0em rgba(255,255,255, 0.5), 2.5em 0em 0 0em rgba(255,255,255, 0.7), 1.75em 1.75em 0 0em #ffffff, 0em 2.5em 0 0em rgba(255,255,255, 0.2), -1.8em 1.8em 0 0em rgba(255,255,255, 0.2), -2.6em 0em 0 0em rgba(255,255,255, 0.2), -1.8em -1.8em 0 0em rgba(255,255,255, 0.2);
+  }
+  50% {
+    box-shadow: 0em -2.6em 0em 0em rgba(255,255,255, 0.2), 1.8em -1.8em 0 0em rgba(255,255,255, 0.2), 2.5em 0em 0 0em rgba(255,255,255, 0.5), 1.75em 1.75em 0 0em rgba(255,255,255, 0.7), 0em 2.5em 0 0em #ffffff, -1.8em 1.8em 0 0em rgba(255,255,255, 0.2), -2.6em 0em 0 0em rgba(255,255,255, 0.2), -1.8em -1.8em 0 0em rgba(255,255,255, 0.2);
+  }
+  62.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(255,255,255, 0.2), 1.8em -1.8em 0 0em rgba(255,255,255, 0.2), 2.5em 0em 0 0em rgba(255,255,255, 0.2), 1.75em 1.75em 0 0em rgba(255,255,255, 0.5), 0em 2.5em 0 0em rgba(255,255,255, 0.7), -1.8em 1.8em 0 0em #ffffff, -2.6em 0em 0 0em rgba(255,255,255, 0.2), -1.8em -1.8em 0 0em rgba(255,255,255, 0.2);
+  }
+  75% {
+    box-shadow: 0em -2.6em 0em 0em rgba(255,255,255, 0.2), 1.8em -1.8em 0 0em rgba(255,255,255, 0.2), 2.5em 0em 0 0em rgba(255,255,255, 0.2), 1.75em 1.75em 0 0em rgba(255,255,255, 0.2), 0em 2.5em 0 0em rgba(255,255,255, 0.5), -1.8em 1.8em 0 0em rgba(255,255,255, 0.7), -2.6em 0em 0 0em #ffffff, -1.8em -1.8em 0 0em rgba(255,255,255, 0.2);
+  }
+  87.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(255,255,255, 0.2), 1.8em -1.8em 0 0em rgba(255,255,255, 0.2), 2.5em 0em 0 0em rgba(255,255,255, 0.2), 1.75em 1.75em 0 0em rgba(255,255,255, 0.2), 0em 2.5em 0 0em rgba(255,255,255, 0.2), -1.8em 1.8em 0 0em rgba(255,255,255, 0.5), -2.6em 0em 0 0em rgba(255,255,255, 0.7), -1.8em -1.8em 0 0em #ffffff;
+  }
+}
+
+/* Add your own styles to customize the appearance of the progress bar */
+.progress-container {
+  width: 50vw;
+  padding: 1vh;
+  /* margin: 20px; */
+}
+
+.progress-bar {
+  height: 1vh;
+  width: 40vw;
+  border-radius: 1rem;
+  background-color: white;
+  position: relative;
+}
+
+#progress {
+  height: 1vh;
+  width: 40vw;
+  border-radius: 1rem;
+  background-color: #4caf50;
+  position: absolute;
 }

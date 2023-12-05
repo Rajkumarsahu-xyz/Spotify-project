@@ -6,6 +6,7 @@ import { app } from './../firebase';
 import { usePlayer } from "./PlayerContext";
 import { FaCirclePause } from 'react-icons/fa6';
 import { FaCirclePlay } from 'react-icons/fa6';
+import Loader from '../Loader';
 
 const AlbumDetails = () => {
   const { albumId } = useParams();
@@ -42,7 +43,7 @@ const AlbumDetails = () => {
   }, [albumId]);
 
   if (!album) {
-    return <div>Loading...</div>;
+    return <Loader/>;
   }
 
   return (

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { createAlbum, addSongToAlbum, updateArtistWithAlbum } from '../FirebaseFunctions';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage, auth } from '../firebase';
+import { toast } from 'react-toastify';
 
 const CreateAlbumPage = () => {
   const [albumTitle, setAlbumTitle] = useState('');
@@ -18,6 +19,7 @@ const CreateAlbumPage = () => {
   const [newlyCreatedAlbum, setNewlyCreatedAlbum] = useState(null);
 
   const { uid, displayName } = auth.currentUser || {};
+  const [loading, setLoading] = useState(false);
   // console.log(uid);
 
   const handleCoverImageChange = (event) => {
@@ -56,10 +58,12 @@ const CreateAlbumPage = () => {
 
 const handleSubmit = async () => {
 
+  setLoading(true);
   if (!uid || !displayName) {
     console.error('User not authenticated.');
     return;
   }
+
     // Upload cover image to Firebase Storage
     const coverImageUrl = await uploadFile('AlbumCovers', albumTitle, coverImage);
 
@@ -103,6 +107,25 @@ const handleSubmit = async () => {
         file: null,
       },
     ]);
+    // try {
+    //   setLoading(true);
+    //   await new Promise((resolve) => setTimeout(resolve, 5000));
+  
+    //   // Reset loading state after the creation is complete
+    //   setLoading(false);
+    // } catch (error) {
+    //   console.error('Error creating album:', error);
+    //   setLoading(false);
+    // }
+    setLoading(false);
+    toast.success('Album created successfully!', {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
   };
   
 
@@ -159,7 +182,7 @@ const handleSubmit = async () => {
 
             <button onClick={handleSubmit}>Create Album</button>
         </div>
-
+        {loading && <span className='loader'>Loading</span>}
         {newlyCreatedAlbum && (
             <div className='newlyCreatedAlbum'>
                 <h2>Newly Created Album</h2>

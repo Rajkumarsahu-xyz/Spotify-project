@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getFirestore, doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { app } from './../firebase';
+import Loader from '../Loader';
 
 const ArtistDetails = () => {
   const { artistId } = useParams();
@@ -48,7 +49,7 @@ const ArtistDetails = () => {
   }, [artistId]);
 
   if (!artist) {
-    return <div>Loading...</div>;
+    return <Loader/>;
   }
 
   return (

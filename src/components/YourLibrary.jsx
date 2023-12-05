@@ -1,19 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { BiLibrary } from "react-icons/bi";
 import LibraryPlaylists from "./LibraryPlaylists";
 import LibraryAlbums from "./LibraryAlbums";
 import LibraryArtists from "./LibraryArtists";
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { Link, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app } from '../firebase';
+import Loader from "../Loader";
+import { toast } from "react-toastify";
 
 const auth = getAuth(app);
 
 function YourLibrary() {
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   function PlaylistsClicked() {
     navigate('/playlists');
@@ -32,6 +46,14 @@ function YourLibrary() {
             if(!user) {
                 console.log("User is not signed in");
                 navigate("/");
+                toast.error('You must be signed in to create an album.', {
+                  position: 'top-right',
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                });
             }
             else {
                 console.log("User is signed in");
@@ -44,6 +66,14 @@ function YourLibrary() {
             if(!user) {
                 console.log("User is not signed in");
                 navigate("/");
+                toast.error('You must be signed in to create a playlist.', {
+                  position: 'top-right',
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                });
             }
             else {
                 console.log("User is signed in");
@@ -74,26 +104,37 @@ function YourLibrary() {
       </div>
 
       <div className="libraryOptions">
-          <h3 className="libraryOptionsTab" onClick={PlaylistsClicked}>Playlists</h3>
-          <h3 className="libraryOptionsTab" onClick={AlbumsClicked}>Albums</h3>
-          <h3 className="libraryOptionsTab" onClick={ArtistClicked}>Artists</h3>
+          <h3 className={`libraryOptionsTab ${location.pathname === "/playlists" ? "active" : ""}`} onClick={PlaylistsClicked}>Playlists</h3>
+          <h3 className={`libraryOptionsTab ${location.pathname === "/albums" ? "active" : ""}`} onClick={AlbumsClicked}>Albums</h3>
+          {/* <h3 className={`libraryOptionsTab ${location.pathname === "/artists" ? "active" : ""}`} onClick={ArtistClicked}>Artists</h3> */}
       </div>
 
-      <Routes>
-        <Route path={"/"} element={<LibraryPlaylists />} />
-        <Route path={"/playlists"} element={<LibraryPlaylists />} />
-        <Route path={"/albums"} element={<LibraryAlbums />} />
-        <Route path={"/artists"} element={<LibraryArtists />} />
-        <Route path={"/createAlbum"} element={<LibraryPlaylists />} />
-        <Route path={"/createAlbum"} element={<LibraryAlbums />} />
-        <Route path={"/createAlbum"} element={<LibraryArtists />} />
-        <Route path={"/createPlaylist"} element={<LibraryPlaylists />} />
-        <Route path={"/createPlaylist"} element={<LibraryAlbums />} />
-        <Route path={"/createPlaylist"} element={<LibraryArtists />} />
-        <Route path="/albums/:albumId" element={<LibraryPlaylists/>} />
-        <Route path="/albums/:albumId" element={<LibraryAlbums/>} />
-        <Route path="/albums/:albumId" element={<LibraryArtists/>} />
-      </Routes>
+        {user ? (
+          <Routes>
+            <Route path={"/"} element={<Loader><LibraryPlaylists /></Loader>} />
+            <Route path={"/playlists"} element={<Loader><LibraryPlaylists /></Loader>} />
+            <Route path={"/albums"} element={<Loader><LibraryAlbums /></Loader>} />
+            <Route path={"/artists"} element={<Loader><LibraryArtists /></Loader>} />
+            <Route path={"/createAlbum"} element={<Loader><LibraryPlaylists /></Loader>} />
+            <Route path={"/createAlbum"} element={<Loader><LibraryAlbums /></Loader>} />
+            <Route path={"/createAlbum"} element={<Loader><LibraryArtists /></Loader>} />
+            <Route path={"/createPlaylist"} element={<Loader><LibraryPlaylists /></Loader>} />
+            <Route path={"/createPlaylist"} element={<Loader><LibraryAlbums /></Loader>} />
+            <Route path={"/createPlaylist"} element={<Loader><LibraryArtists /></Loader>} />
+            <Route path="/albums/:albumId" element={<Loader><LibraryPlaylists/></Loader>} />
+            <Route path="/albums/:albumId" element={<Loader><LibraryAlbums/></Loader>} />
+            <Route path="/albums/:albumId" element={<Loader><LibraryArtists/></Loader>} />
+            <Route path="/playlists/:playlistId" element={<Loader><LibraryPlaylists/></Loader>} />
+            <Route path="/playlists/:playlistId" element={<Loader><LibraryAlbums/></Loader>} />
+            <Route path="/playlists/:playlistId" element={<Loader><LibraryArtists/></Loader>} />
+            <Route path="/artists/:artistId" element={<Loader><LibraryPlaylists/></Loader>} />
+            <Route path="/artists/:artistId" element={<Loader><LibraryAlbums/></Loader>} />
+            <Route path="/artists/:artistId" element={<Loader><LibraryArtists/></Loader>} />
+          </Routes>
+
+          ) : (
+            <p>Please sign in to view your library.</p>
+        )}
     </div>
   );
 }

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { collection, addDoc, getDocs, query, doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
+import { toast } from 'react-toastify';
 
 const CreatePlaylistForm = () => {
   const [title, setTitle] = useState('');
@@ -9,6 +10,7 @@ const CreatePlaylistForm = () => {
   const [availableSongs, setAvailableSongs] = useState([]);
   const [user, setUser] = useState(null);
   const [newlyCreatedPlaylist, setNewlyCreatedPlaylist] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -28,6 +30,8 @@ const CreatePlaylistForm = () => {
       console.error('User not authenticated.');
       return;
     }
+
+      setLoading(true);
 
     // Get the current user's information
     const { uid, displayName } = auth.currentUser;
@@ -58,6 +62,16 @@ const CreatePlaylistForm = () => {
     } catch (error) {
       console.error('Error creating playlist:', error.message);
     }
+
+    setLoading(false);
+    toast.success('Playlist created successfully!', {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
   };
 
   // Fetch existing songs from Firestore
@@ -116,7 +130,7 @@ const CreatePlaylistForm = () => {
           <button type="submit">Create Playlist</button>
         </form>
       </div>
-
+      {loading && <span className='loader'>Loading</span>}
       {newlyCreatedPlaylist && (
             <div className='newlyCreatedPlaylist'>
                 <h2>Newly Created Playlist</h2>
