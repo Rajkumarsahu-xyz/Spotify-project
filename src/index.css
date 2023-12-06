@@ -33,11 +33,12 @@ body {
 .topHeader {
   position: absolute;
   /* display: fixed; */
-  left: 22.5vw;
+  left: 24.5vw;
   width: 50vw;
   padding: 2vh;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .arrowheads {
@@ -53,6 +54,11 @@ body {
 .arrowheads:hover {
   background-color: #1f492f;
 }
+ 
+.logo {
+  display: flex;
+
+}
 
 .spotifyLogo {
   color: #241b1b;
@@ -60,24 +66,20 @@ body {
   background-color: #fff;
   border-radius: 2rem;
   border: none;
-  margin-left: 13vw;
-  margin-right: 1vw;
+  margin: 1vh 1vw;
   align-self: center;
   cursor: pointer;
 }
 
-.topHeader > h1 {
+.logo > h1 {
   cursor: pointer;
 }
 
 .loginIcon {
   font-size: 1.25rem;
   font-weight: 700;
-  position: absolute;
-  top: 3vh;
-  right: 1vw;
   padding: 1vh 2vw;
-  margin-top: 1vh;
+  margin-top: 2vh;
   border-radius: 3rem;
   background-color: black;
   color: whitesmoke;
@@ -99,13 +101,14 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 1vh 1vw;
-  padding: 0 4vh;
+  
+  /* padding: 0 2vh; */
   /* margin-top: 7vh; */
 }
 
 .recentSongsCard {
   display: flex;
-  width: 14vw;
+  width: 16vw;
   justify-content: space-between;
   align-items: center;
   border-radius: 0.5rem;
@@ -120,6 +123,7 @@ body {
 }
 .recentSongsCard > p {
   padding: 1vh;
+  font-size: 1vw;
 }
 
 .artistsContainer {
@@ -139,7 +143,7 @@ body {
 
 .artistCard:hover {
   /* transform: scale(1); */
-  transition-duration: 2s;
+  transition-duration: 1s;
   overflow: hidden;
   object-fit: cover;
 }
@@ -154,7 +158,7 @@ body {
 .artistCard > img:hover {
   /* height: 24vh;
   width: 11.5vw; */
-  transition-duration: 2s;
+  transition-duration: 1s;
   transform: scale(1);
 }
 
@@ -174,7 +178,7 @@ body {
 
 .albumsCard:hover {
   /* transform: scale(1); */
-  transition-duration: 2s;
+  transition-duration: 1s;
   overflow: hidden;
   object-fit: cover;
 }
@@ -189,14 +193,14 @@ body {
 .albumsCard > img:hover {
   /* height: 24vh;
   width: 11.5vw; */
-  transition-duration: 2s;
+  transition-duration: 1s;
   overflow: hidden;
   transform: scale(1);
 }
 
 .leftSideContainer {
   padding: 2vh 1vw;
-  width: 20vw;
+  width: 25vw;
   background-color: #214c32;
   background: linear-gradient(to bottom, #214c32 , #282828 180%);
 }
@@ -275,8 +279,9 @@ body {
 .dropdown-content {
   position: absolute;
   left: 15vw;
-  top: 22vh;
+  top: 25vh;
   width: 8vw;
+  /* height: 11vh; */
   background-color: black;
   border-radius: 0.75rem;
   /* min-width: 160px; */
@@ -286,11 +291,12 @@ body {
 }
 
 .dropdown-content li {
-  padding: 12px;
+  padding: 1vh 1vw;
   text-decoration: none;
   display: block;
   cursor: pointer;
   margin-left: -2vw;
+  text-align: center;
 }
 
 .dropdown-content li:hover {
@@ -361,8 +367,9 @@ body {
   position: fixed;
   bottom: 0;
   display: flex;
-  justify-content: space-between;
-  padding: 1vh 1vw;
+  /* justify-content: space-between; */
+  /* gap: 2vw; */
+  padding: 1vh 0 1vh 1vw;
   background: linear-gradient(to bottom, #1f482e , #241b1b 99%);
 }
 
@@ -370,6 +377,7 @@ body {
   display: flex;
   align-items: center;
   width: 17vw;
+  margin-right: 5vw;
 }
 
 .songDetails > img {
@@ -383,13 +391,22 @@ body {
   line-height: 0.5rem;
 }
 
+.songDetails > div > h3 {
+  font-size: 1vw;
+}
+
+.songDetails > div > p {
+  font-size: 0.9vw;
+}
+
 .likeBtn {
-  font-size: 1.5rem;
+  font-size: 1.3vw;
 }
 
 .audioPlayer {
   /* align-content: center; */
-  margin: 0 15vw 0 0;
+  /* margin: 0 15vw 0 0; */
+  margin-right: 15vw;
   padding: 0 2vw 0 2vw;
   /* align-items: center; */
 }
@@ -405,7 +422,7 @@ body {
 }
 
 .pauseBtn, .playBtn {
-  font-size: 2rem;
+  font-size: 1.75vw;
   padding: 1vh;
   cursor: pointer;
 }
@@ -426,10 +443,11 @@ progress {
 .queueBtn {
   font-size: 2rem;
   justify-content: center;
+  text-align: center;
 }
 
 .queueBtnDiv {
-  width: 7vw;
+  /* width: 7vw; */
   align-self: center;
 }
 
@@ -439,7 +457,7 @@ progress {
   /* border: 1px solid black; */
   background: linear-gradient(to bottom, #265a39 , #241b1b 90%);
   padding: 0 2vh;
-  padding-top: 15vh;
+  padding-top: 25vh;
   padding-bottom: 20vh;
   /* text-align: center; */
 }
@@ -505,7 +523,7 @@ progress {
   width: 50vw;
   background: linear-gradient(to bottom, #265a39 , #241b1b 90%);
   padding: 0 2vh;
-  padding-top: 15vh;
+  padding-top: 25vh;
   padding-bottom: 20vh;
 }
 

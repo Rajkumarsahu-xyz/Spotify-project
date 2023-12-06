@@ -145,7 +145,7 @@ function Playbar() {
         <div>
           <MdSkipPrevious className='prevSong' />
           <div onClick={togglePlay}>
-            {isPlaying ? <FaCirclePause className='pauseBtn' /> : <FaCirclePlay className='playBtn' />}
+            {isPlaying ? <FaCirclePause className='pauseBtn' style={{ fontSize: "1.75rem" }} /> : <FaCirclePlay className='playBtn' style={{ fontSize: "1.75rem" }} />}
           </div>
           <MdSkipNext className='nextSong' />
         </div>

@@ -39,10 +39,14 @@ const App = () => {
   return (
     <div className='appContainer'>
       <div className='topHeader'>
-        <MdArrowBackIosNew className="arrowheads" onClick={goBack}/>
-        <MdArrowForwardIos className="arrowheads" onClick={goForward}/>
-        <FaSpotify className='spotifyLogo' onClick={handleLogoClick}/>
-        <h1 onClick={handleLogoClick}>Spotify</h1>
+        <div>
+          <MdArrowBackIosNew className="arrowheads" onClick={goBack}/>
+          <MdArrowForwardIos className="arrowheads" onClick={goForward}/>
+        </div>
+        <div className='logo'>
+          <FaSpotify className='spotifyLogo' onClick={handleLogoClick}/>
+          <h1 onClick={handleLogoClick}>Spotify</h1>
+        </div>
         <SignInOut/>
         <div className='loginMsg'>
           {user && <h1>Welcome, {user.displayName || 'User'}!</h1>}

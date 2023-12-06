@@ -77,7 +77,7 @@ const RecentlyPlayed = () => {
 
   return (
     <div>
-      <h2 style={{ marginTop: '18vh' }}>Recently Played</h2>
+      <h2 style={{ marginTop: '26vh' }}>Recently Played</h2>
       <div className='recentlyPlayedContainer'>
         {recentlyPlayed.map((song, index) => (
           <div key={index} className='recentSongsCard'>

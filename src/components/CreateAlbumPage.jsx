@@ -70,7 +70,7 @@ const handleSubmit = async () => {
     // Create album in Firestore
     const albumId = await createAlbum(albumTitle, coverImageUrl, uid);
 
-    await updateArtistWithAlbum(uid, displayName, albumId);
+    await updateArtistWithAlbum(uid, displayName, albumId, songs[0].genre);
 
     // Add song to the album
     for (const song of songs) {

@@ -44,7 +44,7 @@ export const addSongToAlbum = async (albumId, name, genre, tags, file, artistId)
     }
   };
 
-  export const updateArtistWithAlbum = async (artistId, artistName, albumId) => {
+  export const updateArtistWithAlbum = async (artistId, artistName, albumId, artistGenre) => {
     const artistDocRef = firestoreDoc(db, 'artists', artistId);
     console.log(artistDocRef);
   
@@ -60,6 +60,7 @@ export const addSongToAlbum = async (albumId, name, genre, tags, file, artistId)
         await setDoc(artistDocRef, {
           name: artistName,
           Album: [albumId],
+          genre: artistGenre,
         });
       }
   
@@ -70,6 +71,7 @@ export const addSongToAlbum = async (albumId, name, genre, tags, file, artistId)
         await setDoc(artistDocRef, {
           name: artistName,
           Album: updatedAlbums,
+          genre: artistGenre,
           // Add any other fields you may have in the artist document
         });
       }
