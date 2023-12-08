@@ -19,7 +19,7 @@ const Loader = ({ children }) => {
   return (
     <div>
       {loading ? (
-        <span className='loader'>Loading</span>
+        <span className='loader'></span>
       ) : (
         children
       )}

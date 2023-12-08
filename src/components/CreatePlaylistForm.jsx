@@ -22,6 +22,14 @@ const CreatePlaylistForm = () => {
     setSelectedSongs((prevSelectedSongs) => [...prevSelectedSongs, { id: selectedSongInfo.id, audioUrl: selectedSongInfo.audioUrl, title: selectedSongInfo.title}]);
   };
 
+  function selectSongs(event) {
+    const selectedOption = event.target;
+    if (selectedOption.tagName === 'OPTION') {
+      selectedOption.style.backgroundColor = "black";
+      selectedOption.style.color = "white";
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -119,7 +127,7 @@ const CreatePlaylistForm = () => {
           <label>Select Songs:</label>
           <select multiple value={selectedSongs} onChange={handleSongSelection}>
             {availableSongs.map((song) => (
-              <option key={song.id} value={JSON.stringify({ id: song.id, title: song.title, audioUrl: song.audioUrl })}>
+              <option key={song.id} value={JSON.stringify({ id: song.id, title: song.title, audioUrl: song.audioUrl })} onClick={selectSongs}>
                 {song.title} - {song.artistName}
               </option>
             ))}
